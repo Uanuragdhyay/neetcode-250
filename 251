@@ -1,0 +1,43 @@
+class Solution {
+    public int aggressiveCows(int[] stalls, int k) {
+        // code here
+        int n = stalls.length;
+        Arrays.sort(stalls);
+        int low = 1;
+        int high = findMax(stalls);
+        int result = -1;
+        
+        while(low <= high){
+            int mid = (low + high)/2;
+            int cowsCount = findCowsCount(stalls , mid);
+            if(cowsCount >= k){
+                result = mid;
+                low= mid+1;
+            }else{
+                high = mid-1;
+            }
+        }
+        return result;
+    }
+    
+    public int findCowsCount(int nums[] , int minDiff){
+        int count = 1;
+        int prevCow = 0;
+        for(int i = 1; i < nums.length; i++){
+            int diff = nums[i] - nums[prevCow];
+            if(diff >= minDiff){
+                prevCow = i;
+                count++;
+            }
+        }
+        return count;
+    }
+    
+    public int findMax(int [] nums){
+        int max = nums[0];
+        for(int i = 0; i < nums.length; i++){
+            max = Math.max(max,nums[i]); 
+        }
+        return max;
+    }
+}
