@@ -1,0 +1,58 @@
+class Solution {
+    public int[] sortArray(int[] nums) {
+        mergeSort(nums, 0 , nums.length-1);
+        return nums;
+    }
+    public void mergeSort (int [] nums , int left, int right){
+        if(left < right){
+            int mid = (left + right)/2;
+
+            mergeSort(nums, left, mid);
+            mergeSort(nums, mid+1, right);
+            merge(nums, left, right, mid);
+        }
+
+    }
+
+    public static void merge(int [] arr, int left, int right, int mid){
+
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+        int [] L = new int [n1];
+        int [] R = new int [n2];
+
+        for(int i = 0 ; i<n1 ; i++){
+            L[i] = arr[left + i];
+        }
+        for(int j = 0 ; j<n2 ; j++){
+            R[j] = arr[mid+1+j];
+        }
+
+        
+        int k = 0;
+        int l = 0;
+        int m = left;
+        while(k<n1 && l<n2){
+            if(L[k]<R[l]){
+                arr[m] = L[k];
+                k++;
+                m++;
+            }else{
+                arr[m] = R[l];
+                l++;
+                m++;
+            }
+        }
+        while(k<n1){
+                arr[m]=L[k];
+                k++;
+                m++;
+        }
+        while(k<n2){
+                arr[m]=R[l];
+                l++;
+                m++;
+        }
+    }
+
+}
