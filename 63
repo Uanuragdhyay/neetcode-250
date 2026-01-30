@@ -1,0 +1,47 @@
+<---------- Approach 1 => Two Binary Search ---------->
+
+
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+       int desiredRow = findDesiredRow(matrix, target);
+       if(desiredRow == -1){
+        return false;
+       }else{
+        
+       int n  = matrix.length;
+       int m  = matrix[0].length;
+       int low = 0;
+       int high = m-1;
+       while(low <= high){
+        int mid = (low + high)/2;
+        if(matrix[desiredRow][mid] == target){
+            return true;
+        }
+        else if(matrix[desiredRow][mid]<target){
+            low = mid+1;
+        }else{
+            high = mid-1;            
+        }
+       }
+       return false;
+       }
+    }
+
+    int findDesiredRow(int [][]matrix, int target){
+        int n  = matrix.length;
+        int m  = matrix[0].length;
+        int low = 0;
+        int high = n-1;
+        int result = -1;
+        while(low <= high){
+            int desiredRow = (low + high)/2;
+            if(matrix[desiredRow][0] <= target){
+                result = desiredRow;
+                low = desiredRow+1;
+            }else{
+                high = desiredRow-1;
+            }
+        }
+        return result;
+    }
+}
